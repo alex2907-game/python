@@ -1,0 +1,25 @@
+Code:
+# Load necessary library
+library(forecast)
+
+# Generate sample time series data
+set.seed(123)
+data <- ts(rnorm(100, mean=50, sd=10))  # Simulated time series data
+
+# Fit ARIMA model
+model <- auto.arima(data)
+
+# Forecast next 10 values
+forecast_values <- forecast(model, h=10)
+
+# Reset the graphical device to clear any issues
+graphics.off()  # Closes all open plot windows
+
+# Open a new plot window
+windows()  # For Windows users (Use quartz() for Mac, X11() for Linux)
+
+# Adjust margins and plot size
+par(mar=c(4,4,2,2))
+
+# Plot results
+plot(forecast_values)
