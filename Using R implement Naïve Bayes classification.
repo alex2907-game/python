@@ -1,0 +1,29 @@
+Code: 
+# Load required libraries
+install.packages("e1071", dependencies=TRUE)  # Install if not already installed
+install.packages("caret", dependencies=TRUE)  # Install if not already installed
+library(e1071)
+library(caret)
+
+# Load dataset
+data(iris)
+
+# Split data into training (80%) and testing (20%)
+set.seed(123)
+train_index <- createDataPartition(iris$Species, p=0.8, list=FALSE)
+train_data <- iris[train_index, ]
+test_data <- iris[-train_index, ]
+
+# Train Naïve Bayes model
+nb_model <- naiveBayes(Species ~ ., data=train_data)
+
+# Make predictions on test data
+predictions <- predict(nb_model, test_data)
+
+# Create confusion matrix & calculate accuracy
+conf_matrix <- table(Predicted=predictions, Actual=test_data$Species)
+accuracy <- sum(diag(conf_matrix)) / sum(conf_matrix)
+
+# Print results
+print(conf_matrix)
+print(paste("Accuracy:", round(accuracy * 100, 2), "%"))
