@@ -1,0 +1,23 @@
+1. Small Sample Test(t-Test)
+# 1.  Example  : One-Sample t-Test
+
+# One-Sample t-Test
+datac <- c(52,49,50,51,48,53,50,52,47,49)
+t_test_1s <- t.test(datac, mu = 50, alternative = "two.sided")
+print(t_test_1s)
+if (t_test_1s$p.value < 0.05) {
+  print("One-Sample t-Test: Null hypothesis (H₀) is REJECTED.")
+} else {
+  print("One-Sample t-Test: Null hypothesis (H₀) is ACCEPTED.")
+}
+
+#  2.Example  : Two-Sample t-Test(Independent Samples)
+group1 <- c(52,49,50,51,48,53)
+group2 <- c(55,52,50,53,54,51)
+t.test(group1 , group2 , var.equal = TRUE , alternative = "two.sided")
+
+# 3.Paired t-Test
+before <- c(10, 15, 14, 18, 20, 22, 25, 30)
+after  <- c(9, 14, 13, 17, 19, 21, 23, 28)
+# Perform paired t-test
+t.test(before, after, paired = TRUE, alternative = "two.sided")
