@@ -1,0 +1,16 @@
+set.seed(123)
+data <- data.frame(
+  Study_Hours = c(2, 3, 5, 7, 9, 10, 12, 15, 18, 20),
+  Attendance = c(80, 85, 78, 90, 88, 92, 95, 98, 99, 100),
+  Performance = c(60, 65, 70, 75, 80, 85, 88, 90, 92, 95),
+  Pass = c(0, 0, 0, 0, 1, 1, 1, 1, 1, 1)  # Binary outcome: 1 = Pass, 0 = Fail
+)
+
+# Logistic Regression: Pass ~ Study_Hours + Attendance
+logistic_model <- glm(Pass ~ Study_Hours + Attendance, data = data, family = binomial)
+summary(logistic_model)
+
+# Plot Logistic Regression
+plot(data$Study_Hours, data$Pass, main = "Pass/Fail vs Study Hours",
+     xlab = "Study Hours", ylab = "Pass (1) / Fail (0)", pch = 16, col = "blue")
+points(data$Study_Hours, fitted(logistic_model), col = "red", pch = 16)
