@@ -1,0 +1,20 @@
+ library(MASS)
+tbl = table(survey$Smoke , survey$Exer)
+tbl
+#we apply chisq.test function to the table tbl
+chisq.test(tbl)
+ctbl = cbind(tbl[,"Freq"], tbl[,"None"] + tbl[,"Some"])
+ctbl
+chisq.test(ctbl)
+
+# code 2
+library(readxl)
+data <- read_excel("chisq_data.xlsx")
+# Convert columns to factors
+data$Study_Method <- as.factor(data$Study_Method)
+data$Performance <- as.factor(data$Performance)
+# Create contingency table
+table_data <- table(data$Study_Method, data$Performance)
+table_data
+chi_test <- chisq.test(table_data)
+print(chi_test)
