@@ -1,0 +1,20 @@
+Code:
+# Load required library
+library(MASS)
+
+# Generate data
+set.seed(123)
+data <- rnorm(100, mean=50, sd=10)
+
+# Fit model with estimated mean & fixed mean
+model <- fitdistr(data, "normal")
+logLik1 <- sum(dnorm(data, mean=model$estimate["mean"], sd=model$estimate["sd"], log=TRUE))
+logLik2 <- sum(dnorm(data, mean=50, sd=model$estimate["sd"], log=TRUE))
+
+# Likelihood Ratio Test
+test_stat <- -2 * (logLik2 - logLik1)
+p_value <- pchisq(test_stat, df=1, lower.tail=FALSE)
+
+# Print results
+cat("LRT Statistic:", test_stat, "\nP-value:", p_value, "\n")
+cat(ifelse(p_value < 0.05, "Reject Null Hypothesis\n", "Fail to Reject Null Hypothesis\n"))
