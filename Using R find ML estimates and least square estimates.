@@ -1,0 +1,17 @@
+# Sample data: Advertising Spend (in $1000) vs. Sales Revenue (in $1000)
+advertising_spend <- c(1, 2, 3, 4, 5)  # Investment in advertising
+sales_revenue <- c(10, 20, 30, 35, 50)  # Revenue generated
+# Least Squares Estimates (LSE) using lm()
+lse_model <- lm(sales_revenue ~ advertising_spend)
+print(coef(lse_model))  # Prints LSE estimates (Intercept & Slope)
+# Maximum Likelihood Estimates (MLE)
+library(stats4)
+mle_model<-mle(function(beta0,beta1,sigma){
+  mu<- beta0+beta1*ad
+  -sum(dnorm(sr,
+             mean = mu,
+             sd=sigma,
+             log=TRUE))
+},
+start=list(beta0=5,beta1=10,sigma=5))
+print(coef(mle_model))# Prints MLE estimates
