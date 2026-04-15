@@ -1,0 +1,19 @@
+Code:
+set.seed(123)
+# Sample Time Series Data
+time_series_data <- ts(c(100, 105, 110, 120, 125, 130, 135, 140, 150, 155), 
+                      start = c(2023, 1), frequency = 4)
+
+# Plot Time Series
+plot(time_series_data, main = "Time Series Data", xlab = "Time", 
+     ylab = "Values", col = "blue", lwd = 2)
+
+# Decompose Time Series
+ts_decomposed <- decompose(time_series_data)
+plot(ts_decomposed)
+
+# Simple Forecast using Exponential Smoothing
+library(forecast)
+forecast_model <- HoltWinters(time_series_data)
+forecast_values <- forecast(forecast_model, h = 4)
+plot(forecast_values)
